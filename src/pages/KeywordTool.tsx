@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Search, TrendingUp, Target, Lightbulb } from 'lucide-react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
+import { Textarea } from '../components/ui/textarea';
 
 interface KeywordSuggestion {
   keyword: string;
@@ -12,13 +13,13 @@ interface KeywordSuggestion {
 }
 
 const KeywordTool = () => {
-  const [query, setQuery] = useState('');
+  const [businessInfo, setBusinessInfo] = useState('');
   const [suggestions, setSuggestions] = useState<KeywordSuggestion[]>([]);
   const [loading, setLoading] = useState(false);
 
   const generateKeywords = async () => {
-    if (!query.trim()) {
-      alert('Mohon masukkan kata kunci');
+    if (!businessInfo.trim()) {
+      alert('Mohon masukkan informasi bisnis Anda');
       return;
     }
 
@@ -33,7 +34,7 @@ const KeywordTool = () => {
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: `Generate 10 SEO keyword suggestions related to "${query}" for digital marketing. For each keyword, provide: keyword phrase, difficulty level (Easy/Medium/Hard), estimated monthly search volume range, and trend (Rising/Stable/Declining). Format as JSON array with fields: keyword, difficulty, volume, trend.`
+              text: `Berdasarkan informasi bisnis: "${businessInfo}", generate 10 rekomendasi keyword SEO yang relevan untuk optimasi on-page bisnis ini. Untuk setiap keyword, berikan: keyword phrase, difficulty level (Easy/Medium/Hard), estimated monthly search volume range, dan trend (Rising/Stable/Declining). Format sebagai JSON array dengan fields: keyword, difficulty, volume, trend.`
             }]
           }]
         }),
@@ -52,11 +53,11 @@ const KeywordTool = () => {
         } else {
           // Fallback parsing if JSON is not properly formatted
           const mockSuggestions = [
-            { keyword: `${query} digital marketing`, difficulty: 'Medium', volume: '1K-10K', trend: 'Rising' },
-            { keyword: `${query} strategy`, difficulty: 'Easy', volume: '500-1K', trend: 'Stable' },
-            { keyword: `best ${query} tools`, difficulty: 'Hard', volume: '10K+', trend: 'Rising' },
-            { keyword: `${query} tips`, difficulty: 'Easy', volume: '1K-5K', trend: 'Stable' },
-            { keyword: `${query} guide`, difficulty: 'Medium', volume: '5K-10K', trend: 'Rising' },
+            { keyword: `${businessInfo.split(' ')[0]} digital marketing`, difficulty: 'Medium', volume: '1K-10K', trend: 'Rising' },
+            { keyword: `${businessInfo.split(' ')[0]} strategy`, difficulty: 'Easy', volume: '500-1K', trend: 'Stable' },
+            { keyword: `best ${businessInfo.split(' ')[0]} tools`, difficulty: 'Hard', volume: '10K+', trend: 'Rising' },
+            { keyword: `${businessInfo.split(' ')[0]} tips`, difficulty: 'Easy', volume: '1K-5K', trend: 'Stable' },
+            { keyword: `${businessInfo.split(' ')[0]} guide`, difficulty: 'Medium', volume: '5K-10K', trend: 'Rising' },
           ];
           setSuggestions(mockSuggestions);
         }
@@ -96,33 +97,53 @@ const KeywordTool = () => {
           {/* Header */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-playfair font-bold text-secondary mb-6">
-              Keyword Research Tool
+              AI Keyword <span className="text-primary">Recommendation</span>
             </h1>
             <p className="text-xl text-gray-600 font-opensans max-w-3xl mx-auto">
-              Temukan kata kunci yang tepat untuk strategi SEO dan content marketing Anda 
-              dengan bantuan AI Gemini yang canggih.
+              Dapatkan rekomendasi keyword yang relevan untuk optimasi SEO on-page bisnis Anda 
+              dengan bantuan kecerdasan buatan.
             </p>
           </div>
 
-          {/* Search Input */}
-          <div className="max-w-2xl mx-auto mb-12">
-            <div className="relative">
-              <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && generateKeywords()}
-                placeholder="Masukkan kata kunci atau topik..."
-                className="w-full px-6 py-4 pl-12 text-lg border border-gray-300 rounded-2xl focus:ring-2 focus:ring-primary focus:border-transparent"
-              />
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <button
-                onClick={generateKeywords}
-                disabled={loading}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary text-white px-6 py-2 rounded-xl hover:bg-opacity-90 transition-all duration-200 disabled:opacity-50"
-              >
-                {loading ? 'Mencari...' : 'Cari'}
-              </button>
+          {/* Keyword Tool Form */}
+          <div className="max-w-4xl mx-auto mb-12">
+            <div className="bg-white rounded-3xl p-8 shadow-lg">
+              <div className="flex items-center gap-2 mb-6">
+                <Lightbulb className="w-6 h-6 text-primary" />
+                <h2 className="text-2xl font-playfair font-bold text-secondary">
+                  Keyword Recommendation Tool
+                </h2>
+              </div>
+              
+              <p className="text-gray-600 mb-6">
+                Masukkan informasi bisnis Anda untuk mendapatkan rekomendasi keyword SEO dari AI kami.
+              </p>
+
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-semibold text-gray-700 mb-2">
+                    Informasi Bisnis
+                  </label>
+                  <Textarea
+                    value={businessInfo}
+                    onChange={(e) => setBusinessInfo(e.target.value)}
+                    placeholder="Jelaskan tentang bisnis Anda: Industri, layanan/produk utama, target audiens, dan keunggulan unik Anda..."
+                    className="min-h-[120px] border-gray-300 focus:border-primary focus:ring-primary"
+                  />
+                  <p className="text-sm text-blue-600 mt-2">
+                    Semakin detail informasi yang Anda berikan, semakin baik rekomendasi yang dihasilkan.
+                  </p>
+                </div>
+
+                <button
+                  onClick={generateKeywords}
+                  disabled={loading}
+                  className="w-full bg-primary text-secondary px-8 py-4 rounded-2xl font-opensans font-semibold hover:bg-opacity-90 transition-all duration-200 disabled:opacity-50 flex items-center justify-center gap-2"
+                >
+                  <Search className="w-5 h-5" />
+                  {loading ? 'Menganalisis...' : 'Dapatkan Rekomendasi Keyword'}
+                </button>
+              </div>
             </div>
           </div>
 
@@ -131,7 +152,7 @@ const KeywordTool = () => {
             <div className="max-w-4xl mx-auto">
               <h2 className="text-2xl font-playfair font-bold text-secondary mb-6 flex items-center gap-2">
                 <Lightbulb className="w-6 h-6 text-primary" />
-                Saran Kata Kunci
+                Rekomendasi Keyword
               </h2>
               
               <div className="grid gap-4">

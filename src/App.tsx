@@ -10,6 +10,7 @@ import Contact from "./pages/Contact";
 import KeywordTool from "./pages/KeywordTool";
 import Blog from "./pages/Blog";
 import Pricing from "./pages/Pricing";
+import Portfolio from "./pages/Portfolio";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/services" element={<Services />} />
           <Route path="/pricing" element={<Pricing />} />
+          <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/keyword-tool" element={<KeywordTool />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
