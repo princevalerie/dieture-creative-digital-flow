@@ -15,11 +15,10 @@ const KeywordTool = () => {
   const [query, setQuery] = useState('');
   const [suggestions, setSuggestions] = useState<KeywordSuggestion[]>([]);
   const [loading, setLoading] = useState(false);
-  const [apiKey, setApiKey] = useState('');
 
   const generateKeywords = async () => {
-    if (!query.trim() || !apiKey.trim()) {
-      alert('Mohon masukkan kata kunci dan API key Gemini');
+    if (!query.trim()) {
+      alert('Mohon masukkan kata kunci');
       return;
     }
 
@@ -29,7 +28,7 @@ const KeywordTool = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-goog-api-key': apiKey,
+          'x-goog-api-key': 'AIzaSyC7HhzczqGlISx4WIyB2OUpWgfwEEhPHO8',
         },
         body: JSON.stringify({
           contents: [{
@@ -64,7 +63,7 @@ const KeywordTool = () => {
       }
     } catch (error) {
       console.error('Error generating keywords:', error);
-      alert('Terjadi kesalahan saat mengambil data keyword. Pastikan API key valid.');
+      alert('Terjadi kesalahan saat mengambil data keyword.');
     } finally {
       setLoading(false);
     }
@@ -102,23 +101,6 @@ const KeywordTool = () => {
             <p className="text-xl text-gray-600 font-opensans max-w-3xl mx-auto">
               Temukan kata kunci yang tepat untuk strategi SEO dan content marketing Anda 
               dengan bantuan AI Gemini yang canggih.
-            </p>
-          </div>
-
-          {/* API Key Input */}
-          <div className="max-w-2xl mx-auto mb-8">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Gemini API Key
-            </label>
-            <input
-              type="password"
-              value={apiKey}
-              onChange={(e) => setApiKey(e.target.value)}
-              placeholder="Masukkan API key Gemini Anda"
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary focus:border-transparent"
-            />
-            <p className="text-sm text-gray-500 mt-1">
-              Dapatkan API key gratis di Google AI Studio
             </p>
           </div>
 
