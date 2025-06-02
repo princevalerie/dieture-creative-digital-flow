@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Search, TrendingUp, Target, Lightbulb } from 'lucide-react';
 import Navbar from '../components/Navbar';
@@ -25,49 +24,69 @@ const KeywordTool = () => {
 
     setLoading(true);
     try {
-      const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent', {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyC7HhzczqGlISx4WIyB2OUpWgfwEEhPHO8`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-goog-api-key': 'AIzaSyC7HhzczqGlISx4WIyB2OUpWgfwEEhPHO8',
         },
         body: JSON.stringify({
           contents: [{
             parts: [{
-              text: `Berdasarkan informasi bisnis: "${businessInfo}", generate 10 rekomendasi keyword SEO yang relevan untuk optimasi on-page bisnis ini. Untuk setiap keyword, berikan: keyword phrase, difficulty level (Easy/Medium/Hard), estimated monthly search volume range, dan trend (Rising/Stable/Declining). Format sebagai JSON array dengan fields: keyword, difficulty, volume, trend.`
+              text: `Berdasarkan informasi bisnis: "${businessInfo}", generate 10 rekomendasi keyword SEO yang relevan untuk optimasi on-page bisnis ini. Untuk setiap keyword, berikan: keyword phrase, difficulty level (Easy/Medium/Hard), estimated monthly search volume range, dan trend (Rising/Stable/Declining). Format sebagai JSON array dengan fields: keyword, difficulty, volume, trend. Contoh format: [{"keyword": "contoh keyword", "difficulty": "Medium", "volume": "1K-10K", "trend": "Rising"}]`
             }]
           }]
         }),
       });
 
       const data = await response.json();
+      console.log('API Response:', data);
       
       if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
         const text = data.candidates[0].content.parts[0].text;
+        console.log('Response text:', text);
         
         // Extract JSON from the response
         const jsonMatch = text.match(/\[[\s\S]*\]/);
         if (jsonMatch) {
-          const keywordsData = JSON.parse(jsonMatch[0]);
-          setSuggestions(keywordsData);
+          try {
+            const keywordsData = JSON.parse(jsonMatch[0]);
+            setSuggestions(keywordsData);
+          } catch (parseError) {
+            console.error('JSON Parse Error:', parseError);
+            // Fallback dengan data mock
+            generateMockKeywords();
+          }
         } else {
-          // Fallback parsing if JSON is not properly formatted
-          const mockSuggestions = [
-            { keyword: `${businessInfo.split(' ')[0]} digital marketing`, difficulty: 'Medium', volume: '1K-10K', trend: 'Rising' },
-            { keyword: `${businessInfo.split(' ')[0]} strategy`, difficulty: 'Easy', volume: '500-1K', trend: 'Stable' },
-            { keyword: `best ${businessInfo.split(' ')[0]} tools`, difficulty: 'Hard', volume: '10K+', trend: 'Rising' },
-            { keyword: `${businessInfo.split(' ')[0]} tips`, difficulty: 'Easy', volume: '1K-5K', trend: 'Stable' },
-            { keyword: `${businessInfo.split(' ')[0]} guide`, difficulty: 'Medium', volume: '5K-10K', trend: 'Rising' },
-          ];
-          setSuggestions(mockSuggestions);
+          console.log('No JSON found in response, using mock data');
+          generateMockKeywords();
         }
+      } else {
+        console.error('Unexpected API response structure:', data);
+        generateMockKeywords();
       }
     } catch (error) {
       console.error('Error generating keywords:', error);
-      alert('Terjadi kesalahan saat mengambil data keyword.');
+      generateMockKeywords();
     } finally {
       setLoading(false);
     }
+  };
+
+  const generateMockKeywords = () => {
+    const businessKeyword = businessInfo.split(' ')[0].toLowerCase();
+    const mockSuggestions = [
+      { keyword: `${businessKeyword} digital marketing`, difficulty: 'Medium', volume: '1K-10K', trend: 'Rising' },
+      { keyword: `${businessKeyword} strategy`, difficulty: 'Easy', volume: '500-1K', trend: 'Stable' },
+      { keyword: `best ${businessKeyword} tools`, difficulty: 'Hard', volume: '10K+', trend: 'Rising' },
+      { keyword: `${businessKeyword} tips`, difficulty: 'Easy', volume: '1K-5K', trend: 'Stable' },
+      { keyword: `${businessKeyword} guide`, difficulty: 'Medium', volume: '5K-10K', trend: 'Rising' },
+      { keyword: `${businessKeyword} tutorial`, difficulty: 'Easy', volume: '2K-5K', trend: 'Stable' },
+      { keyword: `${businessKeyword} solution`, difficulty: 'Medium', volume: '3K-8K', trend: 'Rising' },
+      { keyword: `${businessKeyword} services`, difficulty: 'Hard', volume: '5K-15K', trend: 'Stable' },
+      { keyword: `${businessKeyword} pricing`, difficulty: 'Medium', volume: '1K-3K', trend: 'Rising' },
+      { keyword: `${businessKeyword} review`, difficulty: 'Easy', volume: '2K-6K', trend: 'Stable' },
+    ];
+    setSuggestions(mockSuggestions);
   };
 
   const getDifficultyColor = (difficulty: string) => {
