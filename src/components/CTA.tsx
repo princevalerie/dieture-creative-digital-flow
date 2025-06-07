@@ -4,6 +4,10 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Calendar, MessageCircle } from 'lucide-react';
 
 const CTA = () => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <section className="py-20 bg-gradient-to-r from-primary to-orange-400">
       <div className="container mx-auto px-4">
@@ -19,6 +23,7 @@ const CTA = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
             <Link
               to="/contact"
+              onClick={scrollToTop}
               className="group bg-white text-secondary px-8 py-4 rounded-2xl font-opensans font-semibold hover:bg-gray-100 transition-all duration-300 shadow-lg flex items-center gap-3"
             >
               <Calendar className="w-5 h-5" />
