@@ -16,6 +16,10 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const navLinks = [
     { href: '/', label: 'Beranda' },
     { href: '/services', label: 'Layanan' },
@@ -33,7 +37,7 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to="/" onClick={scrollToTop} className="flex items-center space-x-2">
             <span className="text-primary font-playfair font-bold text-2xl">
               Dieture Creative
             </span>
@@ -45,6 +49,7 @@ const Navbar = () => {
               <Link
                 key={link.href}
                 to={link.href}
+                onClick={scrollToTop}
                 className="text-secondary hover:text-primary transition-colors duration-200 font-opensans"
               >
                 {link.label}
@@ -52,6 +57,7 @@ const Navbar = () => {
             ))}
             <Link
               to="/contact"
+              onClick={scrollToTop}
               className="bg-primary text-white px-6 py-2 rounded-2xl font-opensans font-semibold hover:bg-opacity-90 transition-all duration-200"
             >
               Konsultasi Gratis
@@ -76,7 +82,10 @@ const Navbar = () => {
                   key={link.href}
                   to={link.href}
                   className="block px-3 py-2 text-secondary hover:text-primary transition-colors duration-200 font-opensans"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    setIsOpen(false);
+                    scrollToTop();
+                  }}
                 >
                   {link.label}
                 </Link>
@@ -84,7 +93,10 @@ const Navbar = () => {
               <Link
                 to="/contact"
                 className="block mx-3 mt-4 bg-primary text-white px-6 py-2 rounded-2xl font-opensans font-semibold text-center hover:bg-opacity-90 transition-all duration-200"
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  setIsOpen(false);
+                  scrollToTop();
+                }}
               >
                 Konsultasi Gratis
               </Link>
