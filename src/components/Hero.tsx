@@ -41,10 +41,27 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Content - Placeholder for image */}
+          {/* Right Content - Hero Image */}
           <div className="hidden lg:flex justify-center">
-            <div className="w-full max-w-md h-80 bg-gray-200 rounded-2xl flex items-center justify-center">
-              <span className="text-gray-400 text-2xl font-opensans">600 x 450</span>
+            <div className="relative">
+              <img 
+                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+                alt="Digital Marketing Strategy"
+                className="w-full max-w-md h-80 object-cover rounded-2xl shadow-2xl"
+              />
+              <div className="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-lg">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-sm font-opensans font-semibold text-secondary">
+                    300+ Klien Terpercaya
+                  </span>
+                </div>
+              </div>
+              <div className="absolute -top-6 -right-6 bg-primary rounded-xl p-4 shadow-lg">
+                <span className="text-white font-opensans font-bold text-lg">
+                  4.9★
+                </span>
+              </div>
             </div>
           </div>
         </div>

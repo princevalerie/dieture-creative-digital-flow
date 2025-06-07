@@ -10,6 +10,7 @@ const Services = () => {
       title: "Manajemen Media Sosial",
       description: "Kelola konten, jadwal posting, dan komunitas di berbagai platform seperti Instagram, Facebook, TikTok, dan LinkedIn dengan strategi yang tepat sasaran.",
       features: ["Content Planning", "Community Management", "Analytics & Reporting", "Hashtag Strategy"],
+      image: "https://images.unsplash.com/photo-1611262588024-d12430b98920?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
       link: "/services/social-media"
     },
     {
@@ -17,6 +18,7 @@ const Services = () => {
       title: "Desain Grafis & Branding",
       description: "Ciptakan identitas visual yang kuat dengan desain logo, brand guidelines, dan materi promosi yang konsisten dan memorable.",
       features: ["Logo Design", "Brand Identity", "Print Design", "Digital Assets"],
+      image: "https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
       link: "/services/branding"
     },
     {
@@ -24,6 +26,7 @@ const Services = () => {
       title: "Content Marketing & Ads",
       description: "Tingkatkan reach dan engagement dengan strategi konten berbasis data dan campaign iklan yang teroptimasi untuk konversi maksimal.",
       features: ["SEO Content", "Facebook Ads", "Google Ads", "Performance Analysis"],
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80",
       link: "/services/advertising"
     }
   ];
@@ -45,13 +48,24 @@ const Services = () => {
           {services.map((service, index) => (
             <div 
               key={index}
-              className="group bg-white rounded-3xl p-8 shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+              className="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
             >
-              <div className="mb-6">
-                <div className="bg-primary bg-opacity-10 w-20 h-20 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-opacity-20 transition-all duration-300">
-                  {service.icon}
+              {/* Service Image */}
+              <div className="relative h-48 overflow-hidden">
+                <img 
+                  src={service.image}
+                  alt={service.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-secondary bg-opacity-20 group-hover:bg-opacity-40 transition-all duration-300"></div>
+                <div className="absolute top-4 left-4">
+                  <div className="bg-white bg-opacity-90 w-16 h-16 rounded-2xl flex items-center justify-center">
+                    {service.icon}
+                  </div>
                 </div>
-                
+              </div>
+
+              <div className="p-8">
                 <h3 className="text-2xl font-playfair font-bold text-secondary mb-4">
                   {service.title}
                 </h3>
