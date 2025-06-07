@@ -67,14 +67,14 @@ const Services = () => {
     <div className="min-h-screen">
       <Navbar />
       
-      {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-br from-secondary to-blue-900">
+      {/* Hero Section - Background warna biru dihapus */}
+      <section className="pt-24 pb-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-playfair font-bold text-white mb-6">
+            <h1 className="text-4xl md:text-6xl font-playfair font-bold text-secondary mb-6">
               Layanan Profesional Kami
             </h1>
-            <p className="text-xl text-gray-300 font-opensans leading-relaxed">
+            <p className="text-xl text-gray-600 font-opensans leading-relaxed">
               Solusi digital marketing terintegrasi yang dirancang khusus untuk mengembangkan 
               bisnis Anda dengan strategi yang terbukti efektif dan hasil yang terukur.
             </p>
@@ -82,83 +82,87 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Services Detail */}
-      <section className="py-20">
+      {/* Services Detail - Layout diperbaiki dengan kotak persegi panjang terpisah */}
+      <section className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
-          {services.map((service, index) => (
-            <div 
-              key={service.id}
-              className={`mb-20 ${index % 2 === 1 ? 'md:flex-row-reverse' : ''} md:flex items-center gap-12`}
-            >
-              <div className="md:w-1/2 mb-8 md:mb-0">
-                <div className="bg-primary bg-opacity-10 w-24 h-24 rounded-3xl flex items-center justify-center mb-8">
-                  {service.icon}
-                </div>
-                
-                <h2 className="text-3xl md:text-4xl font-playfair font-bold text-secondary mb-6">
-                  {service.title}
-                </h2>
-                
-                <p className="text-lg text-gray-600 font-opensans mb-8 leading-relaxed">
-                  {service.description}
-                </p>
+          <div className="space-y-16">
+            {services.map((service, index) => (
+              <div 
+                key={service.id}
+                className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300"
+              >
+                <div className="grid md:grid-cols-2 gap-0">
+                  {/* Content Side */}
+                  <div className="p-12 order-2 md:order-1">
+                    <div className="bg-primary bg-opacity-10 w-24 h-24 rounded-3xl flex items-center justify-center mb-8">
+                      {service.icon}
+                    </div>
+                    
+                    <h2 className="text-3xl md:text-4xl font-playfair font-bold text-secondary mb-6">
+                      {service.title}
+                    </h2>
+                    
+                    <p className="text-lg text-gray-600 font-opensans mb-8 leading-relaxed">
+                      {service.description}
+                    </p>
 
-                <div className="mb-8">
-                  <h3 className="text-xl font-opensans font-bold text-secondary mb-4">
-                    Platform & Tools:
-                  </h3>
-                  <div className="flex flex-wrap gap-2">
-                    {service.platforms.map((platform, idx) => (
-                      <span 
-                        key={idx}
-                        className="bg-primary bg-opacity-20 text-secondary px-3 py-1 rounded-full text-sm font-opensans"
-                      >
-                        {platform}
-                      </span>
-                    ))}
+                    <div className="mb-8">
+                      <h3 className="text-xl font-opensans font-bold text-secondary mb-4">
+                        Platform & Tools:
+                      </h3>
+                      <div className="flex flex-wrap gap-2">
+                        {service.platforms.map((platform, idx) => (
+                          <span 
+                            key={idx}
+                            className="bg-primary bg-opacity-20 text-secondary px-3 py-1 rounded-full text-sm font-opensans"
+                          >
+                            {platform}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="mb-8">
+                      <div className="text-2xl font-playfair font-bold text-primary mb-2">
+                        {service.price}
+                      </div>
+                      <p className="text-gray-600 font-opensans text-sm">
+                        *Harga dapat disesuaikan dengan kebutuhan spesifik
+                      </p>
+                    </div>
+
+                    <Link
+                      to="/contact"
+                      className="inline-flex items-center gap-2 bg-primary text-white px-8 py-4 rounded-2xl font-opensans font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg"
+                    >
+                      Konsultasi Gratis
+                      <ArrowRight className="w-5 h-5" />
+                    </Link>
+                  </div>
+
+                  {/* Features Side */}
+                  <div className="bg-gray-50 p-12 order-1 md:order-2">
+                    <h3 className="text-2xl font-playfair font-bold text-secondary mb-8">
+                      Yang Anda Dapatkan:
+                    </h3>
+                    <ul className="space-y-4">
+                      {service.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-start gap-3">
+                          <Check className="w-6 h-6 text-green-500 mt-0.5 flex-shrink-0" />
+                          <span className="text-gray-700 font-opensans">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-
-                <div className="mb-8">
-                  <div className="text-2xl font-playfair font-bold text-primary mb-2">
-                    {service.price}
-                  </div>
-                  <p className="text-gray-600 font-opensans text-sm">
-                    *Harga dapat disesuaikan dengan kebutuhan spesifik
-                  </p>
-                </div>
-
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 bg-primary text-secondary px-8 py-4 rounded-2xl font-opensans font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg"
-                >
-                  Konsultasi Gratis
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
               </div>
-
-              <div className="md:w-1/2">
-                <div className="bg-white rounded-3xl p-8 shadow-xl">
-                  <h3 className="text-2xl font-playfair font-bold text-secondary mb-6">
-                    Yang Anda Dapatkan:
-                  </h3>
-                  <ul className="space-y-4">
-                    {service.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-start gap-3">
-                        <Check className="w-6 h-6 text-green-500 mt-0.5 flex-shrink-0" />
-                        <span className="text-gray-700 font-opensans">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl md:text-5xl font-playfair font-bold text-secondary mb-6">
@@ -171,7 +175,7 @@ const Services = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 to="/contact"
-                className="bg-primary text-secondary px-8 py-4 rounded-2xl font-opensans font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg"
+                className="bg-primary text-white px-8 py-4 rounded-2xl font-opensans font-semibold hover:bg-opacity-90 transition-all duration-300 shadow-lg"
               >
                 Konsultasi Gratis
               </Link>
