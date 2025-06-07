@@ -8,8 +8,8 @@ const Hero = () => {
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Content */}
-          <div className="space-y-6">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-playfair font-bold text-secondary leading-tight">
+          <div className="space-y-8">
+            <h1 className="text-4xl md:text-6xl font-playfair font-bold text-secondary leading-tight">
               Wujudkan Brand
               <br />
               Impian Anda
@@ -19,7 +19,7 @@ const Hero = () => {
               <span className="text-primary">Digital Terdepan</span>
             </h1>
             
-            <p className="text-base md:text-lg text-gray-600 font-opensans max-w-lg">
+            <p className="text-lg text-gray-600 font-opensans max-w-md">
               Dieture Creative membantu bisnis Anda bertumbuh melalui solusi 
               branding dan pemasaran digital yang inovatif dan efektif.
             </p>
@@ -27,14 +27,14 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Link
                 to="/contact"
-                className="bg-primary text-white px-6 py-3 rounded-2xl font-opensans font-semibold hover:bg-opacity-90 transition-all duration-300 text-center text-sm md:text-base"
+                className="bg-primary text-white px-8 py-4 rounded-2xl font-opensans font-semibold hover:bg-opacity-90 transition-all duration-300 text-center"
               >
                 Konsultasi Gratis
               </Link>
               
               <Link
                 to="/portfolio"
-                className="border-2 border-secondary text-secondary px-6 py-3 rounded-2xl font-opensans font-semibold hover:bg-secondary hover:text-white transition-all duration-300 text-center text-sm md:text-base"
+                className="border-2 border-secondary text-secondary px-8 py-4 rounded-2xl font-opensans font-semibold hover:bg-secondary hover:text-white transition-all duration-300 text-center"
               >
                 Lihat Portfolio
               </Link>
@@ -45,20 +45,20 @@ const Hero = () => {
           <div className="hidden lg:flex justify-center">
             <div className="relative">
               <img 
-                src="/lovable-uploads/4b6a245d-8739-4d2d-88cd-2f8580de3525.png"
+                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
                 alt="Digital Marketing Strategy"
-                className="w-full max-w-lg h-auto object-cover rounded-2xl shadow-2xl"
+                className="w-full max-w-md h-80 object-cover rounded-2xl shadow-2xl"
               />
-              <div className="absolute -bottom-4 -left-4 bg-white rounded-xl p-3 shadow-lg">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                  <span className="text-xs font-opensans font-semibold text-secondary">
+              <div className="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-lg">
+                <div className="flex items-center gap-3">
+                  <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                  <span className="text-sm font-opensans font-semibold text-secondary">
                     300+ Klien Terpercaya
                   </span>
                 </div>
               </div>
-              <div className="absolute -top-4 -right-4 bg-primary rounded-xl p-3 shadow-lg">
-                <span className="text-white font-opensans font-bold text-sm">
+              <div className="absolute -top-6 -right-6 bg-primary rounded-xl p-4 shadow-lg">
+                <span className="text-white font-opensans font-bold text-lg">
                   4.9★
                 </span>
               </div>
